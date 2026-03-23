@@ -80,8 +80,4 @@ Route::middleware('auth')->group(function () {
 // Midtrans notification route
 Route::post('/midtrans/notification', [OrderController::class, 'notificationHandler'])->name('midtrans.notification');
 
-Route::get('/migrate-rahasia', function () {
-    // Perintah untuk menjalankan php artisan migrate di server
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-    return 'Migrasi Sukses! Kolom status sudah ditambahkan ke database. Silakan kembali ke halaman Home/Dashboard.';
-});
+
