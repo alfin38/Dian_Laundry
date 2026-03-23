@@ -26,6 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // --- SUNTIKAN JALUR NINJA (OTOMATIS BUAT KOLOM STATUS) ---
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('orders', 'status')) {
+            \Illuminate\Support\Facades\Schema::table('orders', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->string('status')->default('Baru')->after('keterangan');
+            });
+        }
+        // ---------------------------------------------------------
+
         $jumlah_paket = Paket::count();
         $jumlah_order = Order::where('status', '!=', 'Selesai')->count();
         $jumlah_karyawan = User::where('level', 'karyawan')->count();
