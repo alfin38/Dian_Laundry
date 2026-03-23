@@ -7,12 +7,15 @@ use App\Models\Paket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Midtrans\Config;
 use Midtrans\Notification;
 
 class OrderController extends Controller
 {
+    private ?bool $hasPaymentColumns = null;
+
     private function resolvePaidStatus(Order $order): string
     {
         if ($order->status === 'Siap Diambil') {
@@ -24,6 +27,25 @@ class OrderController extends Controller
         }
 
         return 'On Progress';
+    }
+
+    private function hasPaymentColumns(): bool
+    {
+        if ($this->hasPaymentColumns !== null) {
+            return $this->hasPaymentColumns;
+        }
+
+        $this->hasPaymentColumns = Schema::hasColumn('orders', 'dibayarkan')
+            && Schema::hasColumn('orders', 'kembalian');
+
+        return $this->hasPaymentColumns;
+    }
+
+    private function applyPaidOrderFilter($query): void
+    {
+        if ($this->hasPaymentColumns()) {
+            $query->whereRaw('COALESCE(dibayarkan, 0) >= total');
+        }
     }
 
     public function __construct()
@@ -409,8 +431,9 @@ public function markAsCompleted(string $id)
     public function riwayat(Request $request)
     {
         $baseQuery = Order::with('paket')
-            ->where('status', '=', 'Selesai')
-            ->whereRaw('COALESCE(dibayarkan, 0) >= total');
+            ->where('status', '=', 'Selesai');
+
+        $this->applyPaidOrderFilter($baseQuery);
 
         if ($request->filled('q')) {
             $keyword = $request->input('q');
@@ -485,17 +508,18 @@ public function markAsCompleted(string $id)
 
         $query = Order::with('paket')
             ->where('status', '=', 'Selesai');
-        $query->whereRaw('COALESCE(dibayarkan, 0) >= total');
+        $this->applyPaidOrderFilter($query);
 
         $this->applyLaporanFilters($query, $request);
 
         $orders = $query->orderBy('created_at', 'asc')->get();
+        $hasPaymentColumns = $this->hasPaymentColumns();
 
         $summary = [
             'total_transaksi' => $orders->count(),
             'total_pendapatan' => $orders->sum('total'),
-            'total_dibayarkan' => $orders->sum('dibayarkan'),
-            'total_kembalian' => $orders->sum('kembalian'),
+            'total_dibayarkan' => $hasPaymentColumns ? $orders->sum('dibayarkan') : $orders->sum('total'),
+            'total_kembalian' => $hasPaymentColumns ? $orders->sum('kembalian') : 0,
         ];
 
         return view('laporan.index', compact('orders', 'summary'));
@@ -513,17 +537,18 @@ public function markAsCompleted(string $id)
 
         $query = Order::with('paket')
             ->where('status', '=', 'Selesai');
-        $query->whereRaw('COALESCE(dibayarkan, 0) >= total');
+        $this->applyPaidOrderFilter($query);
 
         $this->applyLaporanFilters($query, $request);
 
         $orders = $query->orderBy('created_at', 'asc')->get();
+        $hasPaymentColumns = $this->hasPaymentColumns();
 
         $summary = [
             'total_transaksi' => $orders->count(),
             'total_pendapatan' => $orders->sum('total'),
-            'total_dibayarkan' => $orders->sum('dibayarkan'),
-            'total_kembalian' => $orders->sum('kembalian'),
+            'total_dibayarkan' => $hasPaymentColumns ? $orders->sum('dibayarkan') : $orders->sum('total'),
+            'total_kembalian' => $hasPaymentColumns ? $orders->sum('kembalian') : 0,
         ];
 
         $filters = $request->only(['tahun', 'bulan', 'tanggal_mulai', 'tanggal_selesai']);
