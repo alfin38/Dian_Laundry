@@ -1,0 +1,95 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <marker id="bar" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 1 0 L 1 10" stroke="#4b5563" stroke-width="2"/>
+    </marker>
+    <marker id="crowfoot" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 0 0 L 13 7 L 0 14 M 0 7 L 13 7" stroke="#4b5563" stroke-width="2" fill="none"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font: 700 20px Arial, sans-serif; fill: #1b1b1b; }
+    .table { fill: #ffffff; stroke: #2f3b52; stroke-width: 2; }
+    .header { fill: #f2f5f9; stroke: #2f3b52; stroke-width: 2; }
+    .htext { font: 700 14px Arial, sans-serif; fill: #1b1b1b; }
+    .field { font: 12px Arial, sans-serif; fill: #1b1b1b; }
+    .rel { stroke: #4b5563; stroke-width: 2; fill: none; marker-start: url(#bar); marker-end: url(#crowfoot); }
+    .rel-dash { stroke: #4b5563; stroke-width: 2; stroke-dasharray: 6 4; fill: none; marker-start: url(#bar); marker-end: url(#crowfoot); }
+  </style>
+
+  <text class="title" x="40" y="30">Laundry App ERD (from migrations)</text>
+
+  <!-- USERS -->
+  <rect class="table" x="40" y="40" width="420" height="300"/>
+  <rect class="header" x="40" y="40" width="420" height="32"/>
+  <text class="htext" x="52" y="62">users</text>
+  <text class="field" x="52" y="92">id (PK)</text>
+  <text class="field" x="52" y="110">nama</text>
+  <text class="field" x="52" y="128">email (unique)</text>
+  <text class="field" x="52" y="146">username (unique)</text>
+  <text class="field" x="52" y="164">email_verified_at (nullable)</text>
+  <text class="field" x="52" y="182">password</text>
+  <text class="field" x="52" y="200">level (karyawan/admin)</text>
+  <text class="field" x="52" y="218">remember_token (nullable)</text>
+  <text class="field" x="52" y="236">created_at</text>
+  <text class="field" x="52" y="254">updated_at</text>
+
+  <!-- PASSWORD RESET TOKENS -->
+  <rect class="table" x="40" y="360" width="420" height="150"/>
+  <rect class="header" x="40" y="360" width="420" height="32"/>
+  <text class="htext" x="52" y="382">password_reset_tokens</text>
+  <text class="field" x="52" y="412">email (PK)</text>
+  <text class="field" x="52" y="430">token</text>
+  <text class="field" x="52" y="448">created_at (nullable)</text>
+
+  <!-- PERSONAL ACCESS TOKENS -->
+  <rect class="table" x="40" y="530" width="420" height="240"/>
+  <rect class="header" x="40" y="530" width="420" height="32"/>
+  <text class="htext" x="52" y="552">personal_access_tokens</text>
+  <text class="field" x="52" y="582">id (PK)</text>
+  <text class="field" x="52" y="600">tokenable_type</text>
+  <text class="field" x="52" y="618">tokenable_id</text>
+  <text class="field" x="52" y="636">name</text>
+  <text class="field" x="52" y="654">token (unique)</text>
+  <text class="field" x="52" y="672">abilities (nullable)</text>
+  <text class="field" x="52" y="690">last_used_at (nullable)</text>
+  <text class="field" x="52" y="708">expires_at (nullable)</text>
+  <text class="field" x="52" y="726">created_at</text>
+  <text class="field" x="52" y="744">updated_at</text>
+
+  <!-- PAKETS -->
+  <rect class="table" x="520" y="40" width="420" height="230"/>
+  <rect class="header" x="520" y="40" width="420" height="32"/>
+  <text class="htext" x="532" y="62">pakets</text>
+  <text class="field" x="532" y="92">id (PK)</text>
+  <text class="field" x="532" y="110">jenis_paket</text>
+  <text class="field" x="532" y="128">nama_paket</text>
+  <text class="field" x="532" y="146">waktu_kerja</text>
+  <text class="field" x="532" y="164">berat_minimal</text>
+  <text class="field" x="532" y="182">harga</text>
+  <text class="field" x="532" y="200">created_at</text>
+  <text class="field" x="532" y="218">updated_at</text>
+
+  <!-- ORDERS -->
+  <rect class="table" x="520" y="300" width="420" height="390"/>
+  <rect class="header" x="520" y="300" width="420" height="32"/>
+  <text class="htext" x="532" y="322">orders</text>
+  <text class="field" x="532" y="352">id (PK)</text>
+  <text class="field" x="532" y="370">or_number (unique)</text>
+  <text class="field" x="532" y="388">nama_pelanggan</text>
+  <text class="field" x="532" y="406">no_telp</text>
+  <text class="field" x="532" y="424">id_paket (FK -&gt; pakets.id)</text>
+  <text class="field" x="532" y="442">berat_order</text>
+  <text class="field" x="532" y="460">tgl_masuk</text>
+  <text class="field" x="532" y="478">tgl_keluar</text>
+  <text class="field" x="532" y="496">total</text>
+  <text class="field" x="532" y="514">keterangan</text>
+  <text class="field" x="532" y="532">snap_token (nullable)</text>
+  <text class="field" x="532" y="550">created_at</text>
+  <text class="field" x="532" y="568">updated_at</text>
+
+  <!-- RELATIONSHIPS -->
+  <path class="rel" d="M 730 270 L 730 300"/>
+  <path class="rel-dash" d="M 250 340 L 250 360"/>
+  <path class="rel-dash" d="M 460 200 L 480 200 L 480 530 L 460 530"/>
+</svg>

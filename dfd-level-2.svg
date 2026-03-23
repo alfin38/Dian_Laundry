@@ -1,0 +1,81 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font: 700 20px Arial, sans-serif; fill: #111827; }
+    .entity { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+    .process { fill: #f9fafb; stroke: #1f2937; stroke-width: 2; }
+    .store { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+    .label { font: 13px Arial, sans-serif; fill: #111827; }
+    .flow { stroke: #374151; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+  </style>
+
+  <text class="title" x="40" y="40">DFD Level 2 - Order &amp; Payment</text>
+
+  <!-- External Entities -->
+  <rect class="entity" x="40" y="160" width="240" height="80"/>
+  <text class="label" x="70" y="210">Admin/Karyawan</text>
+
+  <rect class="entity" x="40" y="720" width="240" height="80"/>
+  <text class="label" x="95" y="770">Pelanggan</text>
+
+  <rect class="entity" x="1320" y="420" width="240" height="80"/>
+  <text class="label" x="1390" y="470">Midtrans</text>dfd
+
+  <!-- Data Stores -->
+  <rect class="store" x="1220" y="140" width="260" height="70"/>
+  <line x1="1240" y1="140" x2="1240" y2="210" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="1265" y="185">D2 Pakets</text>
+
+  <rect class="store" x="1220" y="760" width="260" height="70"/>
+  <line x1="1240" y1="760" x2="1240" y2="830" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="1265" y="805">D3 Orders</text>
+
+  <!-- Processes -->
+  <ellipse class="process" cx="520" cy="170" rx="135" ry="55"/>
+  <text class="label" x="470" y="175">3.1 Input Order</text>
+
+  <ellipse class="process" cx="520" cy="300" rx="135" ry="55"/>
+  <text class="label" x="450" y="305">3.2 Validate &amp; Calculate</text>
+
+  <ellipse class="process" cx="520" cy="430" rx="135" ry="55"/>
+  <text class="label" x="485" y="435">3.3 Save Order</text>
+
+  <ellipse class="process" cx="520" cy="560" rx="135" ry="55"/>
+  <text class="label" x="445" y="565">3.4 Generate Snap Token</text>
+
+  <ellipse class="process" cx="520" cy="700" rx="135" ry="55"/>
+  <text class="label" x="470" y="705">4.1 Cash Payment</text>
+
+  <ellipse class="process" cx="520" cy="830" rx="135" ry="55"/>
+  <text class="label" x="450" y="835">4.2 Midtrans Payment</text>
+
+  <ellipse class="process" cx="900" cy="700" rx="150" ry="55"/>
+  <text class="label" x="820" y="705">4.3 Midtrans Notification</text>
+
+  <ellipse class="process" cx="900" cy="430" rx="135" ry="55"/>
+  <text class="label" x="845" y="435">3.5 Update Status</text>
+
+  <!-- Flows -->
+  <path class="flow" d="M 280 200 L 385 170"/>
+  <path class="flow" d="M 280 760 L 385 700"/>
+
+  <path class="flow" d="M 655 170 L 1220 175"/>
+  <path class="flow" d="M 655 300 L 1220 175"/>
+
+  <path class="flow" d="M 655 430 L 1220 795"/>
+  <path class="flow" d="M 655 700 L 1220 795"/>
+
+  <path class="flow" d="M 655 560 L 1320 460"/>
+  <path class="flow" d="M 655 830 L 1320 460"/>
+  <path class="flow" d="M 1320 460 L 1050 700"/>
+
+  <path class="flow" d="M 1050 700 L 1220 795"/>
+  <path class="flow" d="M 1035 430 L 1220 795"/>
+
+  <path class="flow" d="M 1035 430 L 280 730"/>
+  <path class="flow" d="M 1035 430 L 280 220"/>
+</svg>

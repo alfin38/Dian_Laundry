@@ -1,0 +1,86 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <style>
+    .title { font: 700 20px Arial, sans-serif; fill: #111827; }
+    .entity { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+    .process { fill: #f9fafb; stroke: #1f2937; stroke-width: 2; }
+    .store { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+    .label { font: 13px Arial, sans-serif; fill: #111827; }
+    .flow { stroke: #374151; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+  </style>
+
+  <text class="title" x="40" y="40">DFD Level 1</text>
+
+  <!-- External Entities -->
+  <rect class="entity" x="40" y="140" width="240" height="80"/>
+  <text class="label" x="70" y="190">Admin/Karyawan</text>
+
+  <rect class="entity" x="40" y="700" width="240" height="80"/>
+  <text class="label" x="95" y="750">Pelanggan</text>
+
+  <rect class="entity" x="1320" y="420" width="240" height="80"/>
+  <text class="label" x="1390" y="470">Midtrans</text>
+
+  <!-- Processes (circles) -->
+  <ellipse class="process" cx="520" cy="170" rx="120" ry="55"/>
+  <text class="label" x="455" y="175">1.0 Auth &amp; User</text>
+
+  <ellipse class="process" cx="520" cy="320" rx="120" ry="55"/>
+  <text class="label" x="465" y="325">2.0 Paket Mgmt</text>
+
+  <ellipse class="process" cx="520" cy="470" rx="120" ry="55"/>
+  <text class="label" x="465" y="475">3.0 Order Mgmt</text>
+
+  <ellipse class="process" cx="520" cy="620" rx="120" ry="55"/>
+  <text class="label" x="430" y="625">4.0 Payment Proc</text>
+
+  <ellipse class="process" cx="520" cy="800" rx="120" ry="55"/>
+  <text class="label" x="465" y="805">5.0 Reporting</text>
+
+  <!-- Data Stores (open-ended) -->
+  <rect class="store" x="920" y="120" width="260" height="70"/>
+  <line x1="940" y1="120" x2="940" y2="190" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="965" y="165">D1 Users</text>
+
+  <rect class="store" x="920" y="230" width="260" height="70"/>
+  <line x1="940" y1="230" x2="940" y2="300" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="965" y="275">D2 Pakets</text>
+
+  <rect class="store" x="920" y="340" width="260" height="70"/>
+  <line x1="940" y1="340" x2="940" y2="410" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="965" y="385">D3 Orders</text>
+
+  <rect class="store" x="920" y="450" width="260" height="70"/>
+  <line x1="940" y1="450" x2="940" y2="520" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="965" y="495">D4 Password Resets</text>
+
+  <rect class="store" x="920" y="560" width="260" height="70"/>
+  <line x1="940" y1="560" x2="940" y2="630" stroke="#1f2937" stroke-width="2"/>
+  <text class="label" x="965" y="605">D5 Access Tokens</text>
+
+  <!-- Flows: Entities to Processes -->
+  <path class="flow" d="M 280 180 L 400 180"/>
+  <path class="flow" d="M 280 740 L 400 620"/>
+  <path class="flow" d="M 280 740 L 400 470"/>
+
+  <!-- Flows: Processes to Stores -->
+  <path class="flow" d="M 640 170 L 920 155"/>
+  <path class="flow" d="M 640 320 L 920 265"/>
+  <path class="flow" d="M 640 470 L 920 375"/>
+  <path class="flow" d="M 640 620 L 920 375"/>
+  <path class="flow" d="M 640 170 L 920 485"/>
+  <path class="flow" d="M 640 170 L 920 595"/>
+
+  <!-- Flows: Midtrans -->
+  <path class="flow" d="M 640 620 L 1320 460"/>
+  <path class="flow" d="M 1320 440 L 640 600"/>
+
+  <!-- Reporting reads -->
+  <path class="flow" d="M 640 800 L 920 375"/>
+  <path class="flow" d="M 640 800 L 920 265"/>
+  <path class="flow" d="M 640 800 L 920 155"/>
+</svg>
