@@ -76,3 +76,14 @@ Route::post('/order/{id}/pay-midtrans', [OrderController::class, 'processMidtran
 Route::get('/api/check-order-date', [OrderController::class, 'checkOrderDate'])->name('api.checkOrderDate');
 
 Route::post('/payment/process/cash/{order}', [OrderController::class, 'processCashPayment'])->name('payment.process.cash');
+
+Route::get('/bikin-admin-rahasia', function () {
+    \App\Models\User::create([
+        'nama'     => 'Admin Dian Laundry',
+        'email'    => 'admin@dianlaundry.com',
+        'username' => 'admin',
+        'password' => bcrypt('admin123'),
+        'level'    => 'admin',
+    ]);
+    return 'Akun Admin Sukses Dibuat! Silakan hapus URL di web.php dan kembali ke halaman login.';
+});
