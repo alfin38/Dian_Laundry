@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/karyawan/delete/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 
     Route::post('/order/{id}/pay-midtrans', [OrderController::class, 'processMidtransPayment'])->name('payment.process.midtrans');
+    Route::get('/api/check-unfinished-order', [OrderController::class, 'checkUnfinishedOrder'])->name('api.checkUnfinishedOrder');
     Route::get('/api/check-order-date', [OrderController::class, 'checkOrderDate'])->name('api.checkOrderDate');
 
     Route::post('/payment/process/cash/{order}', [OrderController::class, 'processCashPayment'])->name('payment.process.cash');
@@ -79,5 +80,4 @@ Route::middleware('auth')->group(function () {
 
 // Midtrans notification route
 Route::post('/midtrans/notification', [OrderController::class, 'notificationHandler'])->name('midtrans.notification');
-
 
